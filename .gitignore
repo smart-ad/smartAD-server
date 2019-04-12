@@ -62,4 +62,5 @@ typings/
 
 # config
 node_modules/*
+smartAD/config/*
 config/*
