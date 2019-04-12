@@ -60,4 +60,10 @@ typings/
 # next.js build output
 .next
 
+<<<<<<< HEAD
 
+=======
+# config
+node_modules/*
+config/*
+>>>>>>> 98658fb948bc52bf1faa46e214830d9cefcb931c
