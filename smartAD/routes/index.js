@@ -2,7 +2,7 @@
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const db = require('../../module/dbPool.js');
+const db = require('../config/dbPool.js');
 const async = require('async');
 
 server.listen(3000, () => {
@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
                      ORDER BY RAND() LIMIT 1  
                      `
   //client로 보내는 이벤트인 hello
-  socket.on("client1", function(data) {
+  socket.on("client1", async(data) => {
     let age = data[0];
     let gender = data[1];
     let emotion = data[2];
