@@ -1,8 +1,8 @@
 //server
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-const db = require('../config/dbPool.js');
+const io = require('socket.io').listen(server);
+// const db = require('../config/dbPool.js');
 const async = require('async');
 
 server.listen(3000, () => {
@@ -14,9 +14,12 @@ app.get('/', (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  //var d= new Date();
-  //var localTime=d.toLocaleTimeString();
-  //document.getElementById('')
+  
+  // 날짜
+  // var d= new Date();
+  // var localTime=d.toLocaleTimeString();
+  // document.getElementById('')
+  
   let _result, result;
   let selectQuery = `SELECT name, url 
                      FROM ad, tag 
@@ -45,7 +48,8 @@ io.on("connection", (socket) => {
     }
     _result = await db.query(selectQuery, [age, gender, emotion]);
     console.log(_result)
-    socket.emit("ad", _result);
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) { console.log(data); });
   });
   socket.on('Error', function (err) {
     console.log(err);
