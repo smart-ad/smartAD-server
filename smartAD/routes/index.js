@@ -7,26 +7,30 @@ const async = require('async');
 
 server.listen(3000, () => {
   console.log("start the server usin the port 3000");
-});//port열기
+}); // port열기
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
 io.on("connection", (socket) => {
-  //var d= new Date();
-  //var localTime=d.toLocaleTimeString();
-  //document.getElementById('')
+
+  // 현재 시간
+  // var d= new Date();
+  // var localTime=d.toLocaleTimeString();
+  // document.getElementById('')
+
   let _result, result;
-  let selectQuery = `SELECT name, url 
-                     FROM ad, tag 
-                     WHERE ad.ad_idx = tag.ad_idx 
-                     AND tag.age = ? 
-                     AND (tag.gender = ? OR tag.gender is Null) 
-                     AND (tag.emotion = ? OR tag.emotion is Null)
-                     ORDER BY RAND() LIMIT 1  
+  let selectQuery = `
+                    SELECT name, url 
+                    FROM ad, tag 
+                    WHERE ad.ad_idx = tag.ad_idx 
+                    AND tag.age = ? 
+                    AND (tag.gender = ? OR tag.gender is Null) 
+                    AND (tag.emotion = ? OR tag.emotion is Null)
+                    ORDER BY RAND() LIMIT 1  
                     `
-  //client로 보내는 이벤트인 hello
+
   socket.on("client1", async(data) => {
     let gender = data[1];
     let emotion = data[2];
@@ -44,13 +48,13 @@ io.on("connection", (socket) => {
       age = "4069"
     }
     _result = await db.query(selectQuery, [age, gender, emotion]);
-    console.log(_result)
-    socket.emit("ad", _result);
+    console.log(_result);
+    if(_result != undefined) {
+      socket.broadcast.emit('ad', _result);
+      socket.on('my other event', function (data) { console.log(data); });
+    }
   });
   socket.on('Error', function (err) {
-    console.log(err);
-  });
-  socket.on('Disconnect', function (err) {
     console.log(err);
   });
   socket.on('disconnect', () => {

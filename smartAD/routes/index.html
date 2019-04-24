@@ -6,7 +6,9 @@
       var socket = io.connect("http://13.209.141.84:/3000");
       socket.on("ad", function (data) {
         console.log(data);
+        socket.emit('my other event', { my: 'data' });
       });
-        </script>
+      </script>
     </body>
-  </head>
+  </head> 
+</html>
