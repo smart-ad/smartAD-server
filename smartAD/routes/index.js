@@ -1,6 +1,7 @@
 //server
-const app = require('express')();
-const server = require('http').createServer(app);
+var express = require('express');
+const router = express.Router();
+const server = require('http').createServer();
 const io = require('socket.io')(server);
 const db = require('../config/dbPool.js');
 const async = require('async');
@@ -9,7 +10,7 @@ server.listen(3000, () => {
   console.log("start the server usin the port 3000");
 }); // port열기
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
@@ -61,3 +62,5 @@ io.on("connection", (socket) => {
     console.log("Socket is disconnected!")
   });
 });
+
+module.exports = router;
