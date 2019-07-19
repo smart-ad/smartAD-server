@@ -8,19 +8,17 @@ const moment = require('moment')
 const axios = require('axios');
 const cheerio = require('cheerio');
 const request = require('request');
-const client=require('cheerio-httpcli');
-
+const client = require('cheerio-httpcli');
 
 /* 
  * port 열기
-*/
+ */
 server.listen(3000, () => {
   console.log('start the server usin the port 3000');
-});
+}); 
 
-//광고(name, url)
 app.get('/', (req, res) => {
-  res.sendFile(__dirname+'/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', (socket) => {
@@ -90,6 +88,7 @@ io.on('connection', (socket) => {
     else {
       time = null;
     }
+    
     /* 
      * season data (winter, spring, summer, autumn)
      */
@@ -127,17 +126,20 @@ io.on('connection', (socket) => {
     /* 
      * DB connecttion
      */ 
-    var _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
+    _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
+    console.log(_result);
     
-  if(_result != undefined) {
-    socket.broadcast.emit('ad', _result);
-  }
+    if(_result != undefined) {
+      socket.broadcast.emit('ad', _result);
+    }
   });
+
   socket.on('Error', function (err) {
     console.log(err);
   });
-  socket.on('disconnect', () => {
-    console.log('Socket is disconnected!');
-  });
 
+  socket.on('disconnect', () => {
+    console.log('Socket is disconnected!')
+  });
+  
 });
