@@ -8,7 +8,7 @@ const moment = require('moment')
 const axios = require('axios');
 const cheerio = require('cheerio');
 const request = require('request');
-const client=require('cheerio-httpcli');
+const client = require('cheerio-httpcli');
 
 /* 
  * port 열기
@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
     else {
       time = null;
     }
+
     /* 
      * season data (winter, spring, summer, autumn)
      */
