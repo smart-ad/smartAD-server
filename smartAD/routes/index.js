@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //server
 const app = require('express')();
 const server = require('http').createServer(app);
@@ -14,13 +13,14 @@ const client=require('cheerio-httpcli');
 
 /* 
  * port 열기
- */
+*/
 server.listen(3000, () => {
   console.log('start the server usin the port 3000');
 });
 
+//광고(name, url)
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname+'/index.html');
 });
 
 io.on('connection', (socket) => {
@@ -127,12 +127,11 @@ io.on('connection', (socket) => {
     /* 
      * DB connecttion
      */ 
-    _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
-    console.log(_result);
+    var _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
     
-    if(_result != undefined) {
-      socket.broadcast.emit('ad', _result);
-    }
+  if(_result != undefined) {
+    socket.broadcast.emit('ad', _result);
+  }
   });
   socket.on('Error', function (err) {
     console.log(err);
@@ -142,14 +141,3 @@ io.on('connection', (socket) => {
   });
 
 });
-=======
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
->>>>>>> parent of 8e553b2... 소켓 test

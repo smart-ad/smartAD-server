@@ -1,27 +1,22 @@
-var arduino_list=[];
-var temperature;
-var fire;
-var SerialPort = require('serialport'),
-    portName = 'COM4',
-    sp = new SerialPort(portName),
-    sensorVal = 0;
-sp.on('open', function(){
-    console.log('Serial Port OPEN');
-    sp.on('data', function(data){
-        
-        for(var i = 0; i < data.length; i++) {
-            console.log(data[i]);
-            arduino_list.push(data[i]);
-        }
-        //console.log("Fire/Temparature Sensor Value : ", data[0]);
-        // console.log(data[0]);
-        //앞의 두자리-온도, 나머지-화재(int형a태)
-        //total_data=String(data[0]);
-        //temperature=total_data[0]+total_data[1];
-        //console.log(temperature);
+function auto_refresh() {
+    $(document).ready(function(){
+        $.ajax({
+            type : "GET",
+            url : "http://192.168.99.25",
+            crossOrigin: null,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET'
+            } ,
+            dataType : "html",
+            error : function(){
+                alert("통신실패!!!!");
+            },
+            success : function(data){
+                $("#temperature").html(data); //div에 받아온 값을 넣는다.
+                alert("통신 데이터 값 : " + data);
+            }
+        });
     });
-});
-temperature=arduino_list[0];
-fire=arduino_list[1];
-module.exports.fire=fire;
-module.exports.temperature=temperature;
+};
+setInterval('auto_refresh()',30000);
