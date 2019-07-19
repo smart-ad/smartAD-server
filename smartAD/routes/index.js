@@ -88,7 +88,7 @@ io.on('connection', (socket) => {
     else {
       time = null;
     }
-
+    
     /* 
      * season data (winter, spring, summer, autumn)
      */
@@ -133,10 +133,13 @@ io.on('connection', (socket) => {
       socket.broadcast.emit('ad', _result);
     }
   });
+
   socket.on('Error', function (err) {
     console.log(err);
   });
+
   socket.on('disconnect', () => {
     console.log('Socket is disconnected!')
   });
+  
 });
