@@ -1,0 +1,60 @@
+#clockDiv {
+    text-align: center;
+}
+
+#city {
+    padding-left: 12px;
+    font-size: 38px;
+    font-family: "나눔스퀘어 Bold";
+    color: #229dc2;
+}
+
+#temperature {
+    padding-top: 0px;
+    padding-left: 8px;
+    font-size: 80px;
+    font-family: "나눔스퀘어 Light";
+    color: #444;
+}
+
+#do {
+    padding-top: 0px;
+    font-size: 50px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #444;
+}
+
+#amPm {
+    font-size: 60px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: rgb(34, 157, 194);
+}
+
+#time {
+    font-size: 90px;
+    font-family: "나눔스퀘어 ExtraBold";
+}
+
+#day {
+    padding-left: 25px;
+    font-size: 43px;
+    font-family: "나눔스퀘어 Light";
+}
+
+#year {
+    padding-left: 25px;
+    font-size: 43px;
+    font-family: "나눔스퀘어 ExtraBold";
+}
+
+.dateBold {
+    padding-left: 25px;
+    font-size: 43px;
+    font-family: "나눔스퀘어 ExtraBold";
+}
+
+img {
+    width: 150;
+    height: 150;
+    margin-left: 40px;
+}

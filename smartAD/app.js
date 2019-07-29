@@ -47,7 +47,7 @@ function ignoreFavicon(req, res, next) {
   }
 
 app.use(ignoreFavicon);
-
+app.use('/', routes);
 // error handler
 require('./ErrorHandler')(app);
 
