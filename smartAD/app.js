@@ -36,7 +36,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/',routes);
 function ignoreFavicon(req, res, next) {
     if (req.originalUrl === '/favicon.ico') {
