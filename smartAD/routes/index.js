@@ -14,8 +14,8 @@ const client = require('cheerio-httpcli');
  * port 열기
  */
 server.listen(3000, () => {
-  console.log('start the server usin the port 3000');
-}); 
+  console.log('start the server using the port 3000');
+ }); 
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -57,6 +57,7 @@ io.on('connection', (socket) => {
         weather_crawling=(($(this).children()[1])['children'][0])['data'];
         _dust=(((((((($(this).children()[2])['children'])[8])['children'])[1])['children'])[1])['children'][0])['data'];
         _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
+        weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
         
         if(_dust == '나쁨') {
           weather = 'dust';
@@ -127,10 +128,45 @@ io.on('connection', (socket) => {
      * DB connecttion
      */ 
     _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
-    console.log(_result);
+
+    if (parseInt(data[0]) > 0 && parseInt(data[0]) < 10) {
+      _age = '0~10세'
+    }
+    if (parseInt(data[0]) > 9 && parseInt(data[0]) < 20) {
+      _age = '10대'
+    }
+    else if (parseInt(data[0]) > 19 && parseInt(data[0]) < 30) {
+      _age = '20대'
+    }
+    else if (parseInt(data[0]) > 29 && parseInt(data[0]) < 40) {
+      _age = '30대'
+    }
+    else if (parseInt(data[0]) > 39 && parseInt(data[0]) < 50) {
+      _age = '40대'
+    }
+    else if (parseInt(data[0]) > 49 && parseInt(data[0]) < 60) {
+      _age = '50대'
+    }
+    else if (parseInt(data[0]) > 59 && parseInt(data[0]) < 70) {
+      _age = '60대'
+    }
+    else if (parseInt(data[0]) > 69) {
+      _age = '70대'
+    }
+
+    if (gender == 'f') {
+      gender = '여성'
+    }
+    else if (gender == 'm') {
+      gender = '남성'
+    }
+
     
     if(_result != undefined) {
       socket.broadcast.emit('ad', _result);
+      socket.broadcast.emit('age', _age);
+      socket.broadcast.emit('gender', gender);
+      socket.broadcast.emit('weather', weather_text);
     }
   });
 

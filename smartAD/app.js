@@ -8,7 +8,7 @@ const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const indexRouter = require('./routes/index');
+// const indexRouter = require('./routes/index');
 
 app.use((req, res, next) => {
   res.r = (result) => {
