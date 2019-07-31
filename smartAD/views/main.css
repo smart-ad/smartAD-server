@@ -10,18 +10,41 @@
 }
 
 #temperature {
-    padding-top: 0px;
+    margin-top: 20px;
     padding-left: 8px;
-    font-size: 80px;
+    font-size: 75px;
     font-family: "나눔스퀘어 Light";
     color: #444;
 }
 
+#inside {
+    margin-top: 20px;
+    padding-left: 8px;
+    font-size: 20px;
+    font-family: "나눔스퀘어 Bold";
+    color: #555;
+}
+
+#insideTemperature {
+    margin-top: 20px;
+    padding-left: 8px;
+    font-size: 25px;
+    font-family: "나눔스퀘어 Light";
+    color: #888;
+}
+
 #do {
-    padding-top: 0px;
+    margin-top: 20px;
     font-size: 50px;
     font-family: "나눔스퀘어 ExtraBold";
     color: #444;
+}
+
+#insideDo {
+    margin-top: 20px;
+    font-size: 25px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #888;
 }
 
 #amPm {
@@ -36,25 +59,26 @@
 }
 
 #day {
-    padding-left: 25px;
+    padding-left: 23px;
     font-size: 43px;
     font-family: "나눔스퀘어 Light";
 }
 
 #year {
-    padding-left: 25px;
+    padding-left: 23px;
     font-size: 43px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 
 .dateBold {
-    padding-left: 25px;
+    padding-left: 23px;
     font-size: 43px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 
 img {
-    width: 150;
-    height: 150;
-    margin-left: 40px;
+    width: 130;
+    height: 130;
+    margin-top: -18px;
+    margin-right: 10px;
 }

@@ -3,7 +3,6 @@
 <meta http-equiv="Content-Type" content="charset=UTF-8">
 <link rel="stylesheet" href="main.css">
     <head></head> 
-<<<<<<< Updated upstream
     <body onload = "printClock()">
         <div id = "video">
             <video poster="http://placehold.it/640x360"  style= "top: 0; width : auto;
@@ -17,10 +16,12 @@
         </div>
 
         <div style = "float: right; width: 20%; height: 38%;">
-            <br><span id = "city">강북구</span>
-            <br><span id = "temperature">23</font>
+            <br><span id = "city">강북구</span><br>
+            <img src = "img/cloud.png" style = "float: right;">
+            <br><span id = "temperature">23</span>
             <span id = "do">℃</span>
-            <img src = "img/cloud.png">
+            <span id = "insideTemperature">/25</span>
+            <span id = "insideDo">℃</span>
         </div>
         
         <div style = "float: left; width: 20%; height: 26%; background-color: #229dc2;"></div>
@@ -116,17 +117,4 @@
             }
         }
     </script>
-=======
-    <body>
-            <div id = "video">
-                    <video poster="http://placehold.it/640x360"  style= "top: 0; width : auto;
-                    height : auto; overflow: hidden; float: left; z-index : -1; width: 80%; height: 100%;" controls="controls" autoplay="autoplay">
-                        <source src="https://sopt-seminar.s3.ap-northeast-2.amazonaws.com/%EA%B4%80%EC%A0%88%EC%95%BD_4069_%EA%B3%B5%ED%86%B5/%EC%9E%90%EC%97%B0%EB%82%B4%EB%A6%BC+%ED%98%B8%EA%B4%80%EC%9B%90%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84+30%EC%B4%88CF.mp4
-                        " type="video/mp4" />
-                    </video>
-            </div>
-            <div id = "weather" style = "float: right; width: 20%; height: 50%; background-color: pink;"></div>
-            <div id = "date" style = "float: left; width: 20%; height: 50%; background-color: aqua;"></div>
-        </body>
->>>>>>> Stashed changes
 </html>
