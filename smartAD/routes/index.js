@@ -18,7 +18,7 @@ server.listen(3000, () => {
  }); 
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile('C:/Users/user/PycharmProjects/SmartAD/server/smartAD/views/main.html');
 });
 
 io.on('connection', (socket) => {

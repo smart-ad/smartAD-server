@@ -23,8 +23,8 @@
         gender.innerHTML = data;
       });
       socket.on("weather_text", function (data) {
-        var weather = document.getElementById("class4"); 
-        weather.innerHTML = data;
+        var weather_text = document.getElementById("class4"); 
+        weather_text.innerHTML = data;
       });
       socket.on("weather", function (data) {
         var weather = document.getElementById("class5"); 
