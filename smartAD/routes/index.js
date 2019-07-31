@@ -18,7 +18,7 @@ server.listen(3000, () => {
  }); 
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile('C:/Users/user/PycharmProjects/SmartAD/server/smartAD/views/main.html');
 });
 
 io.on('connection', (socket) => {
@@ -166,7 +166,8 @@ io.on('connection', (socket) => {
       socket.broadcast.emit('ad', _result);
       socket.broadcast.emit('age', _age);
       socket.broadcast.emit('gender', gender);
-      socket.broadcast.emit('weather', weather_text);
+      socket.broadcast.emit('weather_text', weather_text);
+      socket.broadcast.emit('weather', _weather);
     }
   });
 

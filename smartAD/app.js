@@ -27,8 +27,9 @@ const routes = require('./routes/routes');
 /*
  app.set
 */
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, './views/'));
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname, './views/'));
 /*
  app.use
 */
