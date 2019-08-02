@@ -6,7 +6,7 @@
     padding-left: 12px;
     font-size: 38px;
     font-family: "나눔스퀘어 Bold";
-    color: #229dc2;
+    color: #5699d2;
 }
 
 #temperature {
@@ -50,7 +50,7 @@
 #amPm {
     font-size: 60px;
     font-family: "나눔스퀘어 ExtraBold";
-    color: rgb(34, 157, 194);
+    color: #5699d2;
 }
 
 #time {
@@ -75,7 +75,11 @@
     font-size: 43px;
     font-family: "나눔스퀘어 ExtraBold";
 }
-
+.identity {
+    font-size: 36px;
+    font-family: "나눔스퀘어 Light";
+    color: #eee7d8;
+}
 img {
     width: 130;
     height: 130;
