@@ -1,7 +1,8 @@
 //server
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const http = require('http');
+const io = require('socket.io').listen(server);
 const db = require('../config/dbPool.js');
 const async = require('async');
 const moment = require('moment')
@@ -9,16 +10,22 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const request = require('request');
 const client = require('cheerio-httpcli');
+const path = require('path');
 
 /* 
  * port 열기
  */
-server.listen(3000, () => {
+server.listen(3002, () => {
   console.log('start the server using the port 3000');
  }); 
 
-app.get('/', (req, res) => {
-  res.sendFile('C:/Users/user/PycharmProjects/SmartAD/server/smartAD/views/main.html');
+app.get('/', (req, res, next) => {
+  try {
+  res.sendFile('main.html', { root: path.join(__dirname, '../views') });
+  }
+  catch (error) {
+    return next("500");
+  }
 });
 
 io.on('connection', (socket) => {
@@ -172,11 +179,17 @@ io.on('connection', (socket) => {
   });
 
   socket.on('Error', function (err) {
-    console.log(err);
+    console.log('Socket error');
   });
 
-  socket.on('disconnect', () => {
+  socket.on('disconnect', function (err) {
     console.log('Socket is disconnected!')
   });
 
+  socket.on('forceDisconnect', function() {
+    socket.disconnect();
+  })
+
 });
+
+module.exports = app;

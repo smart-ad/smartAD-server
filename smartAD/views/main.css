@@ -48,7 +48,7 @@
 }
 
 #amPm {
-    font-size: 60px;
+    font-size: 57px;
     font-family: "나눔스퀘어 ExtraBold";
     color: #5699d2;
 }
@@ -59,20 +59,20 @@
 }
 
 #day {
-    padding-left: 23px;
-    font-size: 43px;
+    padding-left: 21px;
+    font-size: 41px;
     font-family: "나눔스퀘어 Light";
 }
 
 #year {
-    padding-left: 23px;
-    font-size: 43px;
+    padding-left: 21px;
+    font-size: 41px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 
 .dateBold {
-    padding-left: 23px;
-    font-size: 43px;
+    padding-left: 21px;
+    font-size: 41px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 .identity {
