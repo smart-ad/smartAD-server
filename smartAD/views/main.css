@@ -59,27 +59,29 @@
 }
 
 #day {
-    padding-left: 21px;
+    padding-left: 25px;
     font-size: 41px;
     font-family: "나눔스퀘어 Light";
 }
 
 #year {
-    padding-left: 21px;
+    padding-left: 25px;
     font-size: 41px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 
 .dateBold {
-    padding-left: 21px;
+    padding-left: 25px;
     font-size: 41px;
     font-family: "나눔스퀘어 ExtraBold";
 }
+
 .identity {
     font-size: 36px;
     font-family: "나눔스퀘어 Light";
     color: #eee7d8;
 }
+
 img {
     width: 130;
     height: 130;
