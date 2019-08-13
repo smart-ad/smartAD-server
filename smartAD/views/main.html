@@ -7,9 +7,11 @@
         <script>
             var socket = io.connect("http://localhost:3000");
         </script>
+        <script> const request = require('request'); </script>
+        <script> const cheerio = require('cheerio'); </script>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
-    <body onload = "printClock()">
+    <body onload = "printWeather()">
         <div id = "videoDiv">
             <video id = "video" poster="http://placehold.it/640x360"  style= "top: 0; width : auto;
             height : auto; float: left; z-index : -1; width: 80%; height: 100%;" controls="controls" preload="none" autoplay= "autoplay" muted>
@@ -32,7 +34,7 @@
         <div style = "float: right; width: 20%; height: 38%;">
             <br><span id = "city">강북구</span><br>
             <img src = "img/cloud.png" style = "float: right;">
-            <br><span id = "temperature">23</span>
+            <br><span id = "temperature">30</span>
             <span id = "do">℃</span>
             <span id = "insideTemperature">/25</span>
             <span id = "insideDo">℃</span>
@@ -40,28 +42,73 @@
         
         <div style = "float: left; width: 20%; height: 26%; background-color: #5699d2;"></div>
         <script>
-            socket.on("weather", function (data) {
-                var weather = document.getElementById("temperature"); 
-                weather.innerHTML = data;
-            });
-
             socket.on("ad", function (data) {
                 var video = document.getElementById("video");
                 var url = document.getElementById("url");
-                url.src = data[0]['url'];
+                url.src = data[0];
                 document.getElementById("analysis").style.display = "block";
+                //팝업창 띄우는 이벤트 시작
+                //age
+                var age = document.getElementById("age"); 
+                age.innerHTML = data[1];
+                
+                //gender
+                var gender = document.getElementById("gender"); 
+                gender.innerHTML = data[2];
+
                 setTimeout(function() {
                     document.getElementById("analysis").style.display = "none";
                     video.load(); 
                     video.play();
-                }, 3000);
+                }, 6000);  
+                //립 모션 이벤트 시작
+                // a = 0;
+                // socket.emit('restart', a);//다시 얼굴 인식 시작
+                // console.log("restart_1");
             });
+
             // socket.on("weather_text", function (data) {
             //     if(data = "흐리다"){
 
             //     }
             //     document.getElementById("weatherImg").src = ; 
             // });
+
+            document.getElementById('video').addEventListener('ended', function(){
+
+                // var ad_url_save = [];
+                // socket.on("save",function(data){
+                //     ad_url_save.append(data);//ad_url_dave[0]이 사용자가 립모션에서 다시보기 선택 시 틀어줄 광고 url
+                // });
+
+                // socket.emit("first");
+                // video.pause();
+                // a = 0;
+                // console.log("restart_1");
+                // socket.emit('restart', a);//다시 얼굴 인식 시작
+                // console.log("restart_1");
+            });
+
+            function printWeather(){
+                let url ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
+                request(url, (err, res, body)=> {
+                    if(err) {
+                        console.log(err);
+                        return;
+                    }
+                    let $ = cheerio.load(body);
+
+                    $('.fl').each(function(post){
+                        var weather_crawling=(($(this).children()[1])['children'][0])['data'];
+                        var _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
+                        // weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
+                        document.getElementById("temperature").innerHTML = toString(_weather);
+                    });
+                });
+
+                setInterval(printWeather, 1000); 
+            }
+
             function printClock() {
             
                 var clock = document.getElementById("clock");            // 출력할 장소 선택
@@ -70,7 +117,8 @@
                 var currentHours = addZeros(currentDate.getHours(), 2); 
                 var currentMinute = addZeros(currentDate.getMinutes() , 2);
                 var currentSeconds =  addZeros(currentDate.getSeconds(), 2);
-                
+                let url ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
+
                 if(currentHours >= 12) { // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
                     amPm = 'PM';
                     currentHours = addZeros(currentHours - 12, 2);
@@ -82,7 +130,23 @@
                                 "<span class = dateBold>" + getEnglishMonth((currentDate.getMonth()+1)) + "</span>" +
                                 "<span id = year>" + currentDate.getFullYear() + "</span>";
                 
-                setTimeout("printClock()", 1000);         // 1초마다 printClock() 함수 호출
+                setTimeout(printClock, 10000);         // 1초마다 printClock() 함수 호출
+                                
+                // client.fetch(url, function(err, $, res) {
+                //     if(err) {
+                //         console.log(err);
+                //         return;
+                //     }
+                //     $('.fl').each(function(post){
+                //         var weather_crawling=(($(this).children()[1])['children'][0])['data'];
+                //         var _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
+                //         // weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
+                //         var weather = document.getElementById("temperature"); 
+                //         weather.innerHTML = _weather;
+                //     });
+                // });         
+            
+                // // setTimeout(printClock, 1000);         // 1초마다 printClock() 함수 호출
             }
             
             function addZeros(num, digit) {  // 자릿수 맞춰주기
