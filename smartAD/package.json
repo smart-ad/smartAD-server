@@ -18,9 +18,11 @@
     "express": "4.16.4",
     "express-session": "^1.16.2",
     "express-validation": "^1.0.2",
+    "fs": "0.0.1-security",
     "http-errors": "~1.6.2",
     "jade": "^1.11.0",
     "joi": "^14.3.1",
+    "leapjs": "^0.6.4",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
@@ -31,6 +33,7 @@
     "require": "^2.4.20",
     "serialport": "^7.1.5",
     "socket.io": "^2.2.0",
+    "socketio": "^1.0.0",
     "ws": "^6.2.1"
   }
 }

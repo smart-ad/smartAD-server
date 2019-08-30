@@ -1,7 +1,8 @@
 //server
 const app = require('express')();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const http = require('http');
+const io = require('socket.io').listen(server);
 const db = require('../config/dbPool.js');
 const async = require('async');
 const moment = require('moment')
@@ -9,16 +10,22 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const request = require('request');
 const client = require('cheerio-httpcli');
+const path = require('path');
 
 /* 
  * port 열기
  */
-server.listen(3000, () => {
-  console.log('start the server using the port 3000');
- }); 
+server.listen(3002, () => {
+  console.log('start the server using the port 3002');
+}); 
 
-app.get('/', (req, res) => {
-  res.sendFile('C:/Users/user/PycharmProjects/SmartAD/server/smartAD/views/main.html');
+app.get('/', (req, res, next) => {
+  try {
+  res.sendFile('main.html', { root: path.join(__dirname, '../views') });
+  }
+  catch (error) {
+    return next("500");
+  }
 });
 
 io.on('connection', (socket) => {
@@ -36,14 +43,13 @@ io.on('connection', (socket) => {
                     AND (tag.weather =? OR tag.weather is null)
                     ORDER BY RAND() LIMIT 1
                     `
-  // socket.broadcast.emit('restart');
 
   socket.on('client1', async(data) => {
     let url ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
     let gender = data[1];
     let emotion = data[2];
     let age, weather, season, time;
-    var weather_crawling, _weather, _dust,_age;
+    let weather_crawling, _weather, _dust,_age;
 
     /* 
      * weather data (dust, hot, cold)
@@ -58,7 +64,8 @@ io.on('connection', (socket) => {
       $('.fl').each(function(post){
         weather_crawling=(($(this).children()[1])['children'][0])['data'];
         _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
-        _dust=(((((((($(this).children()[2])['children'])[8])['children'])[1])['children'])[1])['children'][0])['data'];
+        // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
+        _dust = '좋음';
         weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
         
         if(_dust == '나쁨') {
@@ -163,36 +170,40 @@ io.on('connection', (socket) => {
       gender = '남성'
     }
 
+    
     if(_result != undefined) {
       const ad_agd_gender = [];
       ad_agd_gender.push(_result[0]['url']);
       ad_agd_gender.push(_age);
       ad_agd_gender.push(gender);
       socket.broadcast.emit('ad', ad_agd_gender);
-      // socket.broadcast.emit('weather_text', final_list[2]);
-      // while(1){
-      //   a = 1;
-      //   socket.on('restart', function(data){
-      //     a = data;
-      //     console.log("in");
-      //   });
-      //   if(a == 0){
-      //     break;
-      //   }
-      // }
     }    
   });
 
-  // socket.on('restart',function(data){
-  //   socket.broadcast.emit('start',data);
-  //   console.log("restart_2");
-  // });
+  socket.on('restart', () => {
+    try{
+      finish = true;
+      io.sockets.emit('finish');
+      console.log("emit start");
+    }
+    catch(err){
+      console.log(err);
+      console.log("emit start Err")
+    }
+  });
 
   socket.on('Error', function (err) {
-    console.log(err);
+    console.log('Socket error');
   });
 
-  socket.on('disconnect', () => {
+  socket.on('disconnect', function (err) {
     console.log('Socket is disconnected!')
   });
+
+  socket.on('forceDisconnect', function() {
+    socket.disconnect();
+  })
+
 });
+
+module.exports = app;

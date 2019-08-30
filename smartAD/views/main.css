@@ -33,6 +33,14 @@
     color: #888;
 }
 
+#insideTemperatureslash {
+    margin-top: 20px;
+    padding-left: 8px;
+    font-size: 25px;
+    font-family: "나눔스퀘어 Light";
+    color: #888;
+}
+
 #do {
     margin-top: 20px;
     font-size: 50px;
@@ -48,7 +56,7 @@
 }
 
 #amPm {
-    font-size: 60px;
+    font-size: 57px;
     font-family: "나눔스퀘어 ExtraBold";
     color: #5699d2;
 }
@@ -59,27 +67,29 @@
 }
 
 #day {
-    padding-left: 23px;
-    font-size: 43px;
+    padding-left: 25px;
+    font-size: 41px;
     font-family: "나눔스퀘어 Light";
 }
 
 #year {
-    padding-left: 23px;
-    font-size: 43px;
+    padding-left: 25px;
+    font-size: 41px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 
 .dateBold {
-    padding-left: 23px;
-    font-size: 43px;
+    padding-left: 25px;
+    font-size: 41px;
     font-family: "나눔스퀘어 ExtraBold";
 }
+
 .identity {
     font-size: 36px;
     font-family: "나눔스퀘어 Light";
     color: #eee7d8;
 }
+
 img {
     width: 130;
     height: 130;
