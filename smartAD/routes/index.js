@@ -16,12 +16,16 @@ const path = require('path');
  * port 열기
  */
 server.listen(3002, () => {
-  console.log('start the server using the port 3000');
- }); 
+  console.log('start the server using the port 3002');
+}); 
 
 app.get('/', (req, res, next) => {
-  try {
-  res.sendFile('main.html', { root: path.join(__dirname, '../views') });
+  try { 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 
+  'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.sendFile('main.html', { root: path.join(__dirname, '../views') });
   }
   catch (error) {
     return next("500");
@@ -49,7 +53,8 @@ io.on('connection', (socket) => {
     let gender = data[1];
     let emotion = data[2];
     let age, weather, season, time;
-    
+    let weather_crawling, _weather, _dust,_age;
+
     /* 
      * weather data (dust, hot, cold)
      */
@@ -62,8 +67,9 @@ io.on('connection', (socket) => {
 
       $('.fl').each(function(post){
         weather_crawling=(($(this).children()[1])['children'][0])['data'];
-        _dust=(((((((($(this).children()[2])['children'])[8])['children'])[1])['children'])[1])['children'][0])['data'];
         _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
+        // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
+        _dust = '좋음'
         weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
         
         if(_dust == '나쁨') {
@@ -170,11 +176,23 @@ io.on('connection', (socket) => {
 
     
     if(_result != undefined) {
-      socket.broadcast.emit('ad', _result);
-      socket.broadcast.emit('age', _age);
-      socket.broadcast.emit('gender', gender);
-      socket.broadcast.emit('weather_text', weather_text);
-      socket.broadcast.emit('weather', _weather);
+      const ad_agd_gender = [];
+      ad_agd_gender.push(_result[0]['url']);
+      ad_agd_gender.push(_age);
+      ad_agd_gender.push(gender);
+      socket.broadcast.emit('ad', ad_agd_gender);
+    }    
+  });
+
+  socket.on('restart', () => {
+    try{
+      finish = true;
+      io.sockets.emit('finish');
+      console.log("finish");
+    }
+    catch(err){
+      console.log(err);
+      console.log("emit start Err")
     }
   });
 
