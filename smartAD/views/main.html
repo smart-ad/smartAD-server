@@ -5,27 +5,36 @@
         <link href="main.css" type="text/css" rel="stylesheet"></link>
         <link rel="shortcut icon" href="">
         <script src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
-        <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/leapjs@0.6.4/leap-0.6.4.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/leapjs@0.6.4/leap-0.6.4.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
         <script>
             var socket = io.connect("http://localhost:3002");
         </script>
     </head>
     <body onload = "printClock()">
         <div id = "videoDiv">
-            <video id = "video" poster="http://placehold.it/640x360"  style= "top: 0; width : auto;
+            <video id = "video" poster="/img/defaultImg.PNG"  style= "top: 0; width : auto;
             height : auto; float: left; z-index : -1; width: 80%; height: 100%;" controls="controls" preload="none" autoplay= "autoplay" muted>
-                <source id ="url" src="https://sopt-seminar.s3.ap-northeast-2.amazonaws.com/%EA%B0%84%ED%8E%B8%EC%8B%9D+%EA%B4%91%EA%B3%A0_1318_%EC%97%AC%EC%9E%90/%EB%A7%88%EC%BC%93%EC%98%A4%EB%84%A4%EC%9D%B4%EC%B2%98+%ED%8C%8C%EC%8A%A4%ED%83%80%EC%B9%A9+-+%ED%8C%8C%EC%8A%A4%ED%83%80_%EC%A7%91_%EC%9C%BC%EB%A1%9C(30_s+ver).mp4" type="video/mp4" />
-            </video>       
+                <source id ="url" src="https://s3.ap-northeast-2.amazonaws.com/sopt-seminar/%ED%83%84%EC%82%B0%EC%9D%8C%EB%A3%8C_1318_%EA%B3%B5%ED%86%B5/%5B%EC%98%A4%EB%9E%91%EC%A7%80%EB%82%98%5D+TVCF+30_.mp4" type="video/mp4" />
+            </video>
+            <!-- <div id = "leapMotion" style= "top: 0; position: absolute; width : auto;
+            height : auto; float: left; z-index : 0; width: 79.3%; height: 100%; background-color: #222; display: none;">
+                <br><span id = "count" class = "finishMessage">3</span>
+                <span class = "finishMessage">초 후에 종료 됩니다</span>
+            </div>        -->
             <div id = "analysis" style= "top: 0; position: absolute; width : auto;
-            height : auto; float: left; z-index : 0; width: 79.3%; height: 100%; background-color: #222;">
+            height : auto; float: left; z-index : 0; width: 79.3%; height: 100%; background-color: #222; display: none;">
                 <img src = "/img/face-scan.svg" style ="display: block; margin-top: 80px; width: 120px; height: 120px; margin-left: auto; margin-right: auto;"/>
-                    <br><span id = "age" class = "identity" style = "text-align: center; display: block; margin-top: 50px; margin-left: 300px; float: left;">30대</span>
-                    <span id = "gender" class = "identity" style = "text-align: center; display: block; margin-top: 50px; margin-left: 15px; float: left;">여성</span>
-                    <span class = "identity" style = "text-align: center; display: block; margin-left: auto; margin-top: 50px; margin-left: 15px; float: left;">사용자의 정보를 수집 어쩌구 저쩌구 어쩌구 저쩌구</span>
-                    <img src = "/img/spinner.svg" style ="display: block; width: auto; height: auto; margin-top: 340px; margin-left: auto; margin-right: auto;"/>
-            </div>  
+                <br><span id = "age" class = "identity" style = "text-align: center; display: block; margin-top: 50px; margin-left: 300px; float: left;">30대</span>
+                <span id = "gender" class = "identity" style = "text-align: center; display: block; margin-top: 50px; margin-left: 15px; float: left;">여성</span>
+                <span class = "identity" style = "text-align: center; display: block; margin-left: auto; margin-top: 50px; margin-left: 15px; float: left;">사용자의 정보를 수집 어쩌구 저쩌구 어쩌구 저쩌구</span>
+                <img src = "/img/spinner.svg" style ="display: block; width: auto; height: auto; margin-top: 340px; margin-left: auto; margin-right: auto;"/>
+            </div>
+            <!-- <div id = "defaultImg" style= "top: 0; position: absolute; width : auto;
+            height : auto; float: left; z-index : 1; width: 79.3%; height: 100%; background-color: #fff;">
+                <img src = "/img/defaultImg.PNG" style = "width: 79.3%; height: 100%"/>
+            </div>   -->
         </div> 
 
         <div id = "clockDiv" style = "float: left; width: 20%; height: 38%; color: #444;"> 
@@ -37,13 +46,18 @@
             <img src = "/img/cloud.png" style = "float: right;"/>
             <br><span id = "temperature">22</span>
             <span id = "do">℃</span>
-            <span id = "insideTemperatureslash">/</span>
-            <span id = "insideTemperature">25</span>
+            <span class = "insideTemperature">/</span>
+            <span class = "insideTemperature" id = "insideTemperature">25</span>
             <span id = "insideDo">℃</span>
         </div>
         
         <div style = "float: left; width: 20%; height: 26%; background-color: #5699d2;"></div>
         <script>
+            // socket.on("weather", function (didata) {
+            //     var weather = document.getElementById("temperature"); 
+            //     weather.innerHTML = data;
+            // });
+
             socket.on("ad", function (data) {
                 var video = document.getElementById("video");
                 var url = document.getElementById("url");
@@ -64,7 +78,37 @@
                 }, 6000);  
                 //립 모션 이벤트 시작
             });
+            
 
+            socket.on("ad", function (data) {
+                var video = document.getElementById("video");
+                var url = document.getElementById("url");
+                url.src = data[0];
+
+                document.getElementById("analysis").style.display = "block";
+                document.getElementById("defaultImg").style.display = "none";
+                // document.getElementById("leapMotion").style.display = "none";
+
+                //age
+                var age = document.getElementById("age"); 
+                age.innerHTML = data[1];
+                
+                //gender
+                var gender = document.getElementById("gender"); 
+                gender.innerHTML = data[2];
+
+                setTimeout(function() {
+                    document.getElementById("analysis").style.display = "none";
+                    video.load(); 
+                    video.play();
+                }, 5000);  
+                //립 모션 이벤트 시작
+            });
+
+            document.getElementById('video').addEventListener('ended', function() {
+                // document.getElementById("leapMotion").style.display = "block";
+                socket.emit("restart");
+            });
             // socket.on("weather_text", function (data) {
             //     if(data = "흐리다"){
 
@@ -80,12 +124,13 @@
                 var currentHours = addZeros(currentDate.getHours(), 2); 
                 var currentMinute = addZeros(currentDate.getMinutes() , 2);
                 var currentSeconds =  addZeros(currentDate.getSeconds(), 2);
-                let url ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
+                let weatherURL ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
 
                 if(currentHours >= 12) { // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
                     amPm = 'PM';
                     currentHours = addZeros(currentHours - 12, 2);
                 }
+
                 clock.innerHTML = "<span id = amPm>" + amPm + " </span>" + 
                                 "<span id = time>" + currentHours + ":" + currentMinute + "</span><br><br>" + 
                                 "<span class = dateBold style = 'padding-left: 0px;'>" + currentDate.getDate() + "</span>" +
@@ -208,7 +253,7 @@
             }
         </script>
         <script>
-            var controller = Leap.loop({enableGestures: true}, function(frame){
+            var controller = Leap.loop({enableGestures: true}, function(frame) {
                     // Display Gesture object data
                 if (frame.gestures.length > 0) {
                     for (var i = 0; i < frame.gestures.length; i++) {

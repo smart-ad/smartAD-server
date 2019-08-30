@@ -20,8 +20,12 @@ server.listen(3002, () => {
 }); 
 
 app.get('/', (req, res, next) => {
-  try {
-  res.sendFile('main.html', { root: path.join(__dirname, '../views') });
+  try { 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 
+  'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.sendFile('main.html', { root: path.join(__dirname, '../views') });
   }
   catch (error) {
     return next("500");
@@ -65,7 +69,11 @@ io.on('connection', (socket) => {
         weather_crawling=(($(this).children()[1])['children'][0])['data'];
         _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
         // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
+<<<<<<< HEAD
+        _dust = '좋음'
+=======
         _dust = '좋음';
+>>>>>>> 37815752d7041b5c8fe6d10f4032a1f8f127e693
         weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
         
         if(_dust == '나쁨') {
@@ -184,7 +192,11 @@ io.on('connection', (socket) => {
     try{
       finish = true;
       io.sockets.emit('finish');
+<<<<<<< HEAD
+      console.log("finish");
+=======
       console.log("emit start");
+>>>>>>> 37815752d7041b5c8fe6d10f4032a1f8f127e693
     }
     catch(err){
       console.log(err);
