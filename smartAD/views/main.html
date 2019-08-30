@@ -61,13 +61,22 @@
             socket.on("ad", function (data) {
                 var video = document.getElementById("video");
                 var url = document.getElementById("url");
-                url.src = data[0]['url'];
+                url.src = data[0];
                 document.getElementById("analysis").style.display = "block";
+                //age
+                var age = document.getElementById("age"); 
+                age.innerHTML = data[1];
+                
+                //gender
+                var gender = document.getElementById("gender"); 
+                gender.innerHTML = data[2];
+
                 setTimeout(function() {
                     document.getElementById("analysis").style.display = "none";
                     video.load(); 
                     video.play();
-                }, 3000);
+                }, 6000);  
+                //립 모션 이벤트 시작
             });
             
 
@@ -133,23 +142,49 @@
                     $.ajax({
                         type : "GET",
                         url : "http://192.168.99.25",
-                        crossDomain : true,
+                        crossDomain: true,
                         headers: {
-                            // 'Access-Control-Allow-Origin':'*'
-                        },
-                        dataType : "text/html",
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'GET',
+                            'Access-Control-Allow-Headers': '*',
+                        } ,
                         error : function(error){
                             console.log(error)
                             console.log("통신 실패!")
                         },
                         success : function(result){
-                            var data_result = $("#insideTemperature").html(result).find('div'); //div에 받아온 값을 넣는다.
-                            $("#insideTemperature").html(data_result).css({'margin-top':'20px','padding-left':'8px','font-size':'25px','font-family':'나눔스퀘어 Light','color':'#888'});
+                            const data_result = $("#insideTemperature").html(result).find('div'); //div에 받아온 값을 넣는다.
+                            $("#insideTemperature").html(data_result);
                         }
                     });
                 });
-                setTimeout("printClock()", 10000);         // 1분 마다 printClock() 함수 호출
+
+                $(document).ready(function(){
+                    $.ajax({
+                        type : "GET",
+                        url : "https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105",
+                        crossDomain: true,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'GET',
+                            'Access-Control-Allow-Headers': '*',
+                        } ,
+                        error : function(error){
+                            console.log(error)
+                            console.log("통신 실패!")
+                        },
+                        success : function(result){
+                            console.log(result);
+                        }
+                    });
+                });
+
+                setTimeout("printClock()", 10000);         // 1초마다 printClock() 함수 호출
             }
+
+            document.getElementById('video').addEventListener('ended', function() {
+                socket.emit("restart");
+            });
             
             function addZeros(num, digit) {  // 자릿수 맞춰주기
                 
