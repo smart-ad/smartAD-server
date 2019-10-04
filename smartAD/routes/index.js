@@ -23,8 +23,7 @@ app.get('/', (req, res, next) => {
   try { 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 
-  'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     res.sendFile('main.html', { root: path.join(__dirname, '../views') });
   }
   catch (error) {
@@ -58,27 +57,24 @@ io.on('connection', (socket) => {
     /* 
      * weather data (dust, hot, cold)
      */
-    await client.fetch(url, function(err, $, res) {
-        
-      if(err) {
+    client.fetch(url, function (err, $, res) {
+      if (err) {
         console.log(err);
         return;
       }
-
-      $('.fl').each(function(post){
-        weather_crawling=(($(this).children()[1])['children'][0])['data'];
-        _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
+      $('.fl').each(function (post) {
+        weather_crawling = (($(this).children()[1])['children'][0])['data'];
+        _weather = parseInt(weather_crawling.replace(/(\s*)/g, ''));
         // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
         _dust = '좋음';
-        weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
-        
-        if(_dust == '나쁨') {
+        weather_text = ((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
+        if (_dust == '나쁨') {
           weather = 'dust';
         }
-        else if(27 <= _weather) {
+        else if (27 <= _weather) {
           weather = 'hot';
         }
-        else if(_weather <= 5) {
+        else if (_weather <= 5) {
           weather = 'cold';
         }
         else {
