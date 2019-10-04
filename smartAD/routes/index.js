@@ -69,11 +69,7 @@ io.on('connection', (socket) => {
         weather_crawling=(($(this).children()[1])['children'][0])['data'];
         _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
         // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
-<<<<<<< HEAD
-        _dust = '좋음'
-=======
         _dust = '좋음';
->>>>>>> 37815752d7041b5c8fe6d10f4032a1f8f127e693
         weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
         
         if(_dust == '나쁨') {
@@ -192,11 +188,7 @@ io.on('connection', (socket) => {
     try{
       finish = true;
       io.sockets.emit('finish');
-<<<<<<< HEAD
       console.log("finish");
-=======
-      console.log("emit start");
->>>>>>> 37815752d7041b5c8fe6d10f4032a1f8f127e693
     }
     catch(err){
       console.log(err);

@@ -4,41 +4,36 @@
 
 #city {
     padding-left: 12px;
-    font-size: 38px;
-    font-family: "나눔스퀘어 Bold";
+    font-size: 35px;
+    font-family: "나눔스퀘어 ExtraBold";
     color: #5699d2;
 }
 
 #temperature {
     margin-top: 20px;
     padding-left: 8px;
-    font-size: 75px;
+    font-size: 120px;
     font-family: "나눔스퀘어 Light";
     color: #444;
 }
 
-#inside {
-    margin-top: 20px;
-    padding-left: 8px;
-    font-size: 20px;
-    font-family: "나눔스퀘어 Bold";
-    color: #555;
-}
-
 #insideTemperature {
-    margin-top: 20px;
-    padding-left: 8px;
     font-size: 25px;
     font-family: "나눔스퀘어 Light";
+    padding-left: 3px;
     color: #888;
 }
 
-#insideTemperatureslash {
-    margin-top: 20px;
-    padding-left: 8px;
+#dust {
     font-size: 25px;
-    font-family: "나눔스퀘어 Light";
+    font-family: "나눔스퀘어 Bold";
     color: #888;
+}
+
+#dustStatus {
+    font-size: 30px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #5699d2;
 }
 
 #do {
@@ -49,7 +44,8 @@
 }
 
 #insideDo {
-    margin-top: 20px;
+    margin-top: 43px;
+    padding-right: 5px;
     font-size: 25px;
     font-family: "나눔스퀘어 ExtraBold";
     color: #888;
@@ -67,19 +63,28 @@
 }
 
 #day {
-    padding-left: 21px;
+    padding-left: 25px;
     font-size: 39px;
     font-family: "나눔스퀘어 Light";
 }
 
 #year {
-    padding-left: 21px;
+    padding-left: 25px;
     font-size: 39px;
     font-family: "나눔스퀘어 ExtraBold";
 }
 
+#age {
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #dfd7c6;
+}
+
+#gender {
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #dfd7c6;
+}
 .dateBold {
-    padding-left: 21px;
+    padding-left: 25px;
     font-size: 39px;
     font-family: "나눔스퀘어 ExtraBold";
 }
@@ -92,7 +97,7 @@
 
 .insideTemperature {
     margin-top: 20px;
-    padding-left: 8px;
+    padding-right: 13px;
     font-size: 25px;
     font-family: "나눔스퀘어 Light";
     color: #888;
@@ -100,14 +105,7 @@
 
 .finishMessage {
     margin-top: 20px;
-    font-size: 25px;
+    font-size: 35px;
     font-family: "나눔스퀘어 Light";
-    color: #fff;
-}
-
-img {
-    width: 10;
-    height: 10;
-    margin-top: -18px;
-    margin-right: 10px;
+    color: rgb(245, 239, 229);
 }
