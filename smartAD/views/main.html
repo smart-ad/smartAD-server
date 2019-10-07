@@ -50,7 +50,7 @@
         <div style = 'float: right; width: 20%; height: 35%;'>
             <br><span id = 'city' style = 'margin-left: 250;'>도봉구</span>
             <div>
-                <img src = '/img/cloud.png' style = 'width: 120; height: 120; margin-top: 5; margin-left: 15;'/>
+                <img id = 'weatherImg' src = '/img/cloud.png' style = 'width: 120; height: 120; margin-top: 5; margin-left: 15;'/>
                 <span id = 'temperature' style = 'position: absolute; float: right; margin-top: 5; margin-left: 13; margin-right: 80;'>24</span>
                 <span id = 'do' style = 'float: right; margin-top: 60; margin-right: 25;'>℃</span>
                 <div style = 'float: right; margin-top: 13; margin-right: 27;'>
@@ -61,7 +61,7 @@
                 <div style = 'margin-top: 63; margin-left: 120;'>
                     <span id = 'dust'>미세먼지</span>
                     <span id = 'dustStatus' style = 'margin-left: 14;'>좋음</span>
-                    <img src = '/img/smile.png' style = 'position: absolute; float: right;margin-top: 0; margin-left: 20; margin-right: 17; width: 45; height: 45;'/>
+                    <img id = 'dustImg' src = '/img/smile.png' style = 'position: absolute; float: right;margin-top: 0; margin-left: 20; margin-right: 17; width: 45; height: 45;'/>
                 </div>
             
             </div>
@@ -86,11 +86,6 @@
         </div>
 
         <script>
-            // socket.on('weather', function (didata) {
-            //     var weather = document.getElementById('temperature'); 
-            //     weather.innerHTML = data;
-            // });
-
             socket.on('ad', function (data) {
                 
                 var video = document.getElementById('video');   
@@ -101,21 +96,49 @@
                 document.getElementById('leapMotion').style.display = 'none';
                 document.getElementById('defaultImg').style.display = 'none';
 
-                //age
+                // age
                 var age = document.getElementById('age'); 
                 age.innerHTML = data[1];
                 
-                //gender
+                // gender
                 var gender = document.getElementById('gender'); 
                 gender.innerHTML = data[2];
 
-                //dust(미세먼지)
+                // dust(미세먼지)
                 var dust = document.getElementById('dustStatus'); 
                 dust.innerHTML = data[3];
+                
+                // dust img(미세먼지 아이콘)
+                if(dust.match('좋음') == '좋음') {
+                    document.getElementById('dustImg').src = '/img/smile.png';
+                }
+                else if(dust.match('보통') == '보통') {
+                    document.getElementById('dustImg').src = '/img/smile.png';
+                }
+                else if(dust.match('나쁨') == '나쁨') {
+                    document.getElementById('dustImg').src = '/img/bad.png';
+                }
+                else if(dust.match('매우나쁨') == '매우나쁨') {
+                    document.getElementById('dustImg').src = '/img/gasmask.png';
+                }
 
                 //weather(실외온도)
                 var weather = document.getElementById('temperature'); 
                 weather.innerHTML = data[4];
+
+                // weather_text(날씨 아이콘)
+                if(data[5].match('비') == '비') {
+                    document.getElementById('weatherImg').src = '/img/rain.png';
+                }
+                else if(data[5].match('흐림') == '흐림' || data[5].match('구름') == '구름') {
+                    document.getElementById('weatherImg').src = '/img/cloud.png';
+                }
+                else if(data[5].match('맑음') == '맑음') {
+                    document.getElementById('weatherImg').src = '/img/sun.png';
+                }
+                else if(data[5].match('눈') == '눈') {
+                    document.getElementById('weatherImg').src = '/img/snow.png';
+                }
 
                 setTimeout(function() {
                     document.getElementById('analysis').style.display = 'none';
@@ -196,13 +219,6 @@
                 document.getElementById('aed').style.display = 'none';
                 document.getElementById('emergencyBackground').style.display = 'none';
             });
-
-            // socket.on('weather_text', function (data) {  
-            //     if(data = '흐리다'){
-
-            //     }
-            //     document.getElementById('weatherImg').src = ; 
-            // });
 
             function printClock() {
             
