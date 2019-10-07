@@ -51,12 +51,15 @@ io.on('connection', (socket) => {
     let url ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
     let gender = data[1];
     let emotion = data[2];
+    let _weather = data[3];
+    let _dust = data[4];
     let age, weather, season, time;
-    let weather_crawling, _weather, _dust,_age;
+    let weather_crawling,_age;
 
     /* 
      * weather data (dust, hot, cold)
      */
+<<<<<<< Updated upstream
     client.fetch(url, function (err, $, res) {
       if (err) {
         console.log(err);
@@ -82,6 +85,38 @@ io.on('connection', (socket) => {
         }
       });
     });
+=======
+    // await client.fetch(url, function(err, $, res) {
+        
+    //   if(err) {
+    //     console.log(err);
+    //     return;
+    //   }
+
+    //   $('.fl').each(function(post){
+    //     weather_crawling=(($(this).children()[1])['children'][0])['data'];
+    //     _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
+    //     // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
+    //     _dust = '좋음'
+    //     weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
+        
+    if(_dust == '나쁨') {
+      weather = 'dust';
+    }
+    else if(27 <= _weather) {
+      weather = 'hot';
+    }
+    else if(_weather <= 5) {
+      weather = 'cold';
+    }
+    else {
+      weather = null;
+    }
+    //   });
+    // });
+
+
+>>>>>>> Stashed changes
 
     /* 
      * time data (lunch, dinner)
@@ -176,6 +211,10 @@ io.on('connection', (socket) => {
       ad_agd_gender.push(_result[0]['url']);
       ad_agd_gender.push(_age);
       ad_agd_gender.push(gender);
+      //_dust->미세먼지
+      ad_agd_gender.push(_dust);
+      //_weather->실외온도
+      ad_agd_gender.push(_weather);
       socket.broadcast.emit('ad', ad_agd_gender);
     }    
   });

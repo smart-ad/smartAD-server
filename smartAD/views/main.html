@@ -105,6 +105,14 @@
                 var gender = document.getElementById('gender'); 
                 gender.innerHTML = data[2];
 
+                //dust(미세먼지)
+                var dust = document.getElementById('dustStatus'); 
+                dust.innerHTML = data[3];
+
+                //weather(실외온도)
+                var weather = document.getElementById('temperature'); 
+                weather.innerHTML = data[4];
+
                 setTimeout(function() {
                     document.getElementById('analysis').style.display = 'none';
                     video.load(); 
