@@ -58,48 +58,7 @@ io.on('connection', (socket) => {
 
     /* 
      * weather data (dust, hot, cold)
-     */
-<<<<<<< Updated upstream
-    client.fetch(url, function (err, $, res) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      $('.fl').each(function (post) {
-        weather_crawling = (($(this).children()[1])['children'][0])['data'];
-        _weather = parseInt(weather_crawling.replace(/(\s*)/g, ''));
-        // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
-        _dust = '좋음';
-        weather_text = ((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
-        if (_dust == '나쁨') {
-          weather = 'dust';
-        }
-        else if (27 <= _weather) {
-          weather = 'hot';
-        }
-        else if (_weather <= 5) {
-          weather = 'cold';
-        }
-        else {
-          weather = null;
-        }
-      });
-    });
-=======
-    // await client.fetch(url, function(err, $, res) {
-        
-    //   if(err) {
-    //     console.log(err);
-    //     return;
-    //   }
-
-    //   $('.fl').each(function(post){
-    //     weather_crawling=(($(this).children()[1])['children'][0])['data'];
-    //     _weather=parseInt(weather_crawling.replace(/(\s*)/g,''));
-    //     // _dust=((((((((((((((($(this).children()[2])['children'])[8])['parent'])['children'])[7])['next'])['children'])[0])['next'])['children'])[0])['next'])['children'])[0])['data'];
-    //     _dust = '좋음'
-    //     weather_text=((((($(this).children()[1])['children'][0])['next'])['next'])['children'][0])['data'];
-        
+     */        
     if(_dust == '나쁨') {
       weather = 'dust';
     }
@@ -112,11 +71,6 @@ io.on('connection', (socket) => {
     else {
       weather = null;
     }
-    //   });
-    // });
-
-
->>>>>>> Stashed changes
 
     /* 
      * time data (lunch, dinner)
