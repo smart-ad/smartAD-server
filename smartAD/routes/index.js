@@ -52,7 +52,8 @@ io.on('connection', (socket) => {
     let gender = data[1];
     let emotion = data[2];
     let _weather = data[3];
-    let _dust = data[4];
+    let weather_text = data[4];
+    let _dust = data[5];
     let age, weather, season, time;
     let weather_crawling,_age;
 
@@ -165,10 +166,12 @@ io.on('connection', (socket) => {
       ad_agd_gender.push(_result[0]['url']);
       ad_agd_gender.push(_age);
       ad_agd_gender.push(gender);
-      //_dust->미세먼지
+      //_dust
       ad_agd_gender.push(_dust);
       //_weather->실외온도
       ad_agd_gender.push(_weather);
+      //weather_text->비(날씨 아이콘)
+      ad_agd_gender.push(weather_text);
       socket.broadcast.emit('ad', ad_agd_gender);
     }    
   });

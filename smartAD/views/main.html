@@ -81,11 +81,6 @@
             </video>
         </div>
         <script>
-            // socket.on('weather', function (didata) {
-            //     var weather = document.getElementById('temperature'); 
-            //     weather.innerHTML = data;
-            // });
-
             socket.on('ad', function (data) {
                 
                 var video = document.getElementById('video');   
@@ -112,6 +107,12 @@
                 //weather(실외온도)
                 var weather = document.getElementById('temperature'); 
                 weather.innerHTML = data[4];
+                
+                //weather_text(날씨 아이콘)
+                //     if(data = '흐리다'){
+
+                //     }
+                //     document.getElementById('weatherImg').src = ;
 
                 setTimeout(function() {
                     document.getElementById('analysis').style.display = 'none';
@@ -178,13 +179,6 @@
                 document.getElementById('aed').style.display = 'none';
                 document.getElementById('emergencyBackground').style.display = 'none';
             });
-
-            // socket.on('weather_text', function (data) {  
-            //     if(data = '흐리다'){
-
-            //     }
-            //     document.getElementById('weatherImg').src = ; 
-            // });
 
             function printClock() {
             
