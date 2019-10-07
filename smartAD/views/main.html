@@ -13,7 +13,7 @@
     </head>
     <body onload = 'printClock()'>
         <div id = 'videoDiv'>
-            <video id = 'video' poster=''  style= 'top: 0; width : auto;
+            <video id = 'video' poster='' style= 'top: 0; width : auto;
             height : auto; float: left; z-index : -1; width: 80%; height: 100%;' controls='controls' preload='none' autoplay= 'autoplay'>
                 <source id ='url' src='' type='video/mp4' />
             </video>
@@ -34,7 +34,7 @@
 
             <div id = 'leapMotion' style= 'top: 0; position: absolute; width : auto;
             height : auto; float: left; z-index : 2; width: 79.3%; height: 100%; background-color: #222; opacity: 0.97; display: none;'>
-                <br><span id = 'count' class = 'finishMessage' style = 'display: block; margin-top: 120px; margin-left: 570px; float: left; color: #5699d2;'>5</span>
+                <br><span id = 'count' class = 'finishMessage' style = 'display: block; margin-top: 120px; margin-left: 570px; float: left; color: #5699d2;'>10</span>
                 <span class = 'finishMessage'  style = 'display: block; margin-top: 120px; margin-left: 9px; float: left;'>초 후에 종료 됩니다</span>
                 <div  style= 'position: absolute;'>
                     <img src = '/img/l.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
@@ -129,12 +129,25 @@
                 document.getElementById('leapMotion').style.display = 'block';
                 document.getElementById('defaultImg').style.display = 'none';
                 
+                $(function() {
+                    var cnt = 10;
+                    var counter = setInterval(function() {
+                        if (cnt > 0) {
+                            var count = document.getElementById('count');       
+                            count.innerHTML = '<span>' + cnt + ' </span>'
+                            cnt--;
+                        } 
+                        else 
+                            clearInterval(counter);
+                    }, 1000);
+                });
+
                 // 립모션 없을 경우 5초 뒤 restart 조건 넣어야 됨.
                 var timeCount = setTimeout(function() {
                                     socket.emit('restart');
                                     document.getElementById('defaultImg').style.display = 'block';
                                     document.getElementById('leapMotion').style.display = 'none';
-                                }, 10000);
+                                }, 11000);
 
                 // Display Gesture object data
                 var controller = Leap.loop({enableGestures: true}, function(frame) {
@@ -199,7 +212,6 @@
                 var currentHours = addZeros(currentDate.getHours(), 2); 
                 var currentMinute = addZeros(currentDate.getMinutes() , 2);
                 var currentSeconds =  addZeros(currentDate.getSeconds(), 2);
-                let weatherURL ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
 
                 if(currentHours >= 12) { // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
                     amPm = 'PM';
@@ -234,27 +246,6 @@
                         }
                     });
                 });
-
-                $(document).ready(function(){
-                    $.ajax({
-                        type : 'GET',
-                        url : 'https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105',
-                        crossDomain: true,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Access-Control-Allow-Methods': 'GET',
-                            'Access-Control-Allow-Headers': '*',
-                        },
-                        error : function(error){
-                            console.log(error)
-                            console.log('통신 실패!')
-                        },
-                        success : function(result){
-                            console.log(result);
-                        }
-                    });
-                });
-
                 setTimeout('printClock()', 10000);         // 1초마다 printClock() 함수 호출
             }
 

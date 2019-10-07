@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
     let _weather = data[3];
     let _dust = data[4];
     let age, weather, season, time;
-    let weather_crawling,_age;
+    let weather_crawling, _age;
 
     /* 
      * weather data (dust, hot, cold)
@@ -161,15 +161,15 @@ io.on('connection', (socket) => {
 
     
     if(_result != undefined) {
-      const ad_agd_gender = [];
-      ad_agd_gender.push(_result[0]['url']);
-      ad_agd_gender.push(_age);
-      ad_agd_gender.push(gender);
+      const ad_age_gender = [];
+      ad_age_gender.push(_result[0]['url']);
+      ad_age_gender.push(_age);
+      ad_age_gender.push(gender);
       //_dust->미세먼지
-      ad_agd_gender.push(_dust);
+      ad_age_gender.push(_dust);
       //_weather->실외온도
-      ad_agd_gender.push(_weather);
-      socket.broadcast.emit('ad', ad_agd_gender);
+      ad_age_gender.push(_weather);
+      socket.broadcast.emit('ad', ad_age_gender);
     }    
   });
 
