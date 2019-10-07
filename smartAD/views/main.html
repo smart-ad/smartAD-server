@@ -14,7 +14,7 @@
     <body onload = 'printClock()'>
         <div id = 'videoDiv'>
             <video id = 'video' poster=''  style= 'top: 0; width : auto;
-            height : auto; float: left; z-index : -1; width: 80%; height: 100%;' controls='controls' preload='none' autoplay= 'autoplay' muted>
+            height : auto; float: left; z-index : -1; width: 80%; height: 100%;' controls='controls' preload='none' autoplay= 'autoplay'>
                 <source id ='url' src='' type='video/mp4' />
             </video>
             
@@ -51,7 +51,7 @@
             <br><span id = 'city' style = 'margin-left: 250;'>도봉구</span>
             <div>
                 <img src = '/img/cloud.png' style = 'width: 120; height: 120; margin-top: 5; margin-left: 15;'/>
-                <span id = 'temperature' style = 'position: absolute; float: right; margin-top: 5;  margin-left: 13;margin-right: 80;'>24</span>
+                <span id = 'temperature' style = 'position: absolute; float: right; margin-top: 5; margin-left: 13; margin-right: 80;'>24</span>
                 <span id = 'do' style = 'float: right; margin-top: 60; margin-right: 25;'>℃</span>
                 <div style = 'float: right; margin-top: 13; margin-right: 27;'>
                     <span class = 'insideTemperature'>실내 온도</span>
@@ -76,10 +76,15 @@
             <img id = 'call' src = '/img/119.png' style= 'top: 400; position: absolute; z-index : 7; margin-left: 400; width: 200; height: 200; display: none;'/>
             <img id = 'aed'  src = '/img/aed.png' style= 'top: 400; position: relative; margin-right: 100; margin-left: 900; z-index : 7; width: 200; height: 200;display: none;' onmouseover="aedOver()"/>
             <video id = 'aedVideo' poster=''  style= 'top: 0; width : auto;
-            height : auto; float: left; z-index : 11; width: 100%; height: 100%; display: none;' controls='controls' preload='none' autoplay= 'autoplay' muted>
+            height : auto; float: left; z-index : 11; width: 100%; height: 100%; display: none;' controls='controls' preload='none' autoplay= 'autoplay'>
                 <source id ='aedSrc' src='https://sopt-seminar.s3.ap-northeast-2.amazonaws.com/AED+%EC%82%AC%EC%9A%A9%EB%B2%95+_%EC%A7%88%EB%B3%91%EA%B4%80%EB%A6%AC%EB%B3%B8%EB%B6%80_%EC%9D%BC%EB%B0%98%EC%9D%B8+%EC%8B%AC%ED%8F%90%EC%86%8C%EC%83%9D%EC%88%A0+%ED%91%9C%EC%A4%80%EA%B5%90%EC%9C%A1+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8+(1).mp4' type='video/mp4' />
             </video>
         </div>
+
+        <div id = 'exit' style = 'top: 0; position: absolute; margin-left: 730; margin-top: 40; z-index : 15; width: 1; height: 1; display: none;' onmouseover="exitOver()">
+            <img src = '/img/exit.png'/>
+        </div>
+
         <script>
             // socket.on('weather', function (didata) {
             //     var weather = document.getElementById('temperature'); 
@@ -95,7 +100,6 @@
                 document.getElementById('analysis').style.display = 'block';
                 document.getElementById('leapMotion').style.display = 'none';
                 document.getElementById('defaultImg').style.display = 'none';
-                // document.getElementById('leapMotion').style.display = 'none';
 
                 //age
                 var age = document.getElementById('age'); 
@@ -109,7 +113,7 @@
                     document.getElementById('analysis').style.display = 'none';
                     video.load(); 
                     video.play();
-                }, 5000);  
+                }, 4000);  
             });
 
             document.getElementById('video').addEventListener('ended', function() {
@@ -117,6 +121,13 @@
                 document.getElementById('leapMotion').style.display = 'block';
                 document.getElementById('defaultImg').style.display = 'none';
                 
+                // 립모션 없을 경우 5초 뒤 restart 조건 넣어야 됨.
+                var timeCount = setTimeout(function() {
+                                    socket.emit('restart');
+                                    document.getElementById('defaultImg').style.display = 'block';
+                                    document.getElementById('leapMotion').style.display = 'none';
+                                }, 10000);
+
                 // Display Gesture object data
                 var controller = Leap.loop({enableGestures: true}, function(frame) {
                     if (frame.gestures.length > 0) {
@@ -147,6 +158,7 @@
                                 
                                     document.getElementById('leapMotion').style.display = 'none';
                                     document.getElementById('defaultImg').style.display = 'none';
+                                    clearTimeout(timeCount);
                                     console.log(swipeDirection)
                                     console.log(duration)
                                 } 
@@ -154,13 +166,6 @@
                         }
                     }
                 });
-                
-                // 립모션 없을 경우 5초 뒤 restart 조건 넣어야 됨.
-                setTimeout(function() {
-                            socket.emit('restart');
-                            document.getElementById('defaultImg').style.display = 'block';
-                            document.getElementById('leapMotion').style.display = 'none';
-                }, 10000);
             });
             
             document.getElementById('aedVideo').addEventListener('ended', function() {
@@ -231,7 +236,7 @@
                             'Access-Control-Allow-Origin': '*',
                             'Access-Control-Allow-Methods': 'GET',
                             'Access-Control-Allow-Headers': '*',
-                        } ,
+                        },
                         error : function(error){
                             console.log(error)
                             console.log('통신 실패!')
@@ -315,6 +320,7 @@
                 document.getElementById('emergencyBackground').style.display = 'block';
                 document.getElementById('call').style.display = 'block';
                 document.getElementById('aed').style.display = 'block';
+                document.getElementById('exit').style.display = 'block';
             }
 
             function aedOver() {
@@ -325,7 +331,18 @@
                 aedVideo.load(); 
                 aedVideo.play();
                 var video = document.getElementById('video');
-                video.stop();
+                video.pause();
+            }
+
+            function exitOver() {
+                document.getElementById('aedVideo').style.display = 'none'; 
+                document.getElementById('emergencyBackground').style.display = 'none';
+                document.getElementById('call').style.display = 'none';
+                document.getElementById('aed').style.display = 'none';
+                document.getElementById('exit').style.display = 'none';
+                var aedVideo = document.getElementById('aedVideo');
+                aedVideo.pause();
+                video.play();
             }
         </script>
     </body>
