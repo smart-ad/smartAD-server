@@ -1,0 +1,26 @@
+<svg class="lds-message" width="150px"  height="120px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><g transform="translate(0 50)">
+<circle cx="0" cy="0" r="7" fill="#5699d2" transform="scale(0.99275 0.99275)">
+  <animateTransform attributeName="transform" type="scale" begin="-0.675s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.3s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(20 50)">
+<circle cx="0" cy="0" r="7" fill="#d8ebf9" transform="scale(0.773605 0.773605)">
+  <animateTransform attributeName="transform" type="scale" begin="-0.55s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.3s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(40 50)">
+<circle cx="0" cy="0" r="7" fill="#71c2cc" transform="scale(0.52525 0.52525)">
+  <animateTransform attributeName="transform" type="scale" begin="-0.425s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.3s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(60 50)">
+<circle cx="0" cy="0" r="7" fill="#4996a2" transform="scale(0.313418 0.313418)">
+  <animateTransform attributeName="transform" type="scale" begin="-0.325s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.3s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(80 50)">
+<circle cx="0" cy="0" r="7" fill="#e8cdc5" transform="scale(0.113418 0.113418)">
+  <animateTransform attributeName="transform" type="scale" begin="-0.225s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.3s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(100 50)">
+<circle cx="0" cy="0" r="7" fill="#eee7d8" transform="scale(0.013418 0.013418)">
+  <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.3s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(120 50)">
+</g></svg>

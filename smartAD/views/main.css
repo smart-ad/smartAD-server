@@ -1,0 +1,111 @@
+#clockDiv {
+    text-align: center;
+}
+
+#city {
+    padding-left: 12px;
+    font-size: 35px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #5699d2;
+}
+
+#temperature {
+    margin-top: 20px;
+    padding-left: 8px;
+    font-size: 120px;
+    font-family: "나눔스퀘어 Light";
+    color: #444;
+}
+
+#insideTemperature {
+    font-size: 25px;
+    font-family: "나눔스퀘어 Light";
+    padding-left: 3px;
+    color: #888;
+}
+
+#dust {
+    font-size: 25px;
+    font-family: "나눔스퀘어 Bold";
+    color: #888;
+}
+
+#dustStatus {
+    font-size: 30px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #5699d2;
+}
+
+#do {
+    margin-top: 20px;
+    font-size: 50px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #444;
+}
+
+#insideDo {
+    margin-top: 43px;
+    padding-right: 5px;
+    font-size: 25px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #888;
+}
+
+#amPm {
+    font-size: 57px;
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #5699d2;
+}
+
+#time {
+    font-size: 90px;
+    font-family: "나눔스퀘어 ExtraBold";
+}
+
+#day {
+    padding-left: 25px;
+    font-size: 39px;
+    font-family: "나눔스퀘어 Light";
+}
+
+#year {
+    padding-left: 25px;
+    font-size: 39px;
+    font-family: "나눔스퀘어 ExtraBold";
+}
+
+#age {
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #dfd7c6;
+}
+
+#gender {
+    font-family: "나눔스퀘어 ExtraBold";
+    color: #dfd7c6;
+}
+.dateBold {
+    padding-left: 25px;
+    font-size: 39px;
+    font-family: "나눔스퀘어 ExtraBold";
+}
+
+.identity {
+    font-size: 36px;
+    font-family: "나눔스퀘어 Light";
+    color: #eee7d8;
+}
+
+.insideTemperature {
+    margin-top: 20px;
+    padding-right: 13px;
+    font-size: 25px;
+    font-family: "나눔스퀘어 Light";
+    color: #888;
+}
+
+.finishMessage {
+    margin-top: 20px;
+    font-size: 35px;
+    font-family: "나눔스퀘어 Light";
+    color: rgb(245, 239, 229);
+}
