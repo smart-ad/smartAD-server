@@ -29,7 +29,7 @@
 
             <div id = 'defaultImg' style= 'top: 0; position: absolute; width : auto;
             height : auto; float: left; z-index : 1; width: 79.3%; height: 100%; background-color: #fff;'>
-                <img src = '/img/1.PNG' style = 'width: 1520; height: 1080'/>
+                <img src = '/img/mainImg.PNG' style = 'width: 1520; height: 1080'/>
             </div>
 
             <div id = 'leapMotion' style= 'top: 0; position: absolute; width : auto;
@@ -37,8 +37,8 @@
                 <br><span id = 'count' class = 'finishMessage' style = 'display: block; margin-top: 120px; margin-left: 570px; float: left; color: #5699d2;'>10</span>
                 <span class = 'finishMessage'  style = 'display: block; margin-top: 120px; margin-left: 9px; float: left;'>초 후에 종료 됩니다</span>
                 <div  style= 'position: absolute;'>
-                    <img src = '/img/l.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
-                    <img src = '/img/r.png'style = 'position: absolute; margin-top: 390px; margin-left: 950px; width: 250; height: 340;'/>
+                    <img src = '/img/leftSwipe.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
+                    <img src = '/img/rightSwipe.png'style = 'position: absolute; margin-top: 390px; margin-left: 950px; width: 250; height: 340;'/>
                 </div>
             </div>
         </div> 
@@ -47,7 +47,7 @@
             <br><br><br><br><br><font id = 'clock'></font> 
         </div>
 
-        <div style = 'float: right; width: 20%; height: 35%;'>
+        <div id = 'weatherDiv' style = 'float: right; width: 20%; height: 35%;'>
             <br><span id = 'city' style = 'margin-left: 250;'>도봉구</span>
             <div>
                 <img id = 'weatherImg' src = '/img/cloud.png' style = 'width: 120; height: 120; margin-top: 5; margin-left: 15;'/>
@@ -68,7 +68,7 @@
         </div>
 
         <div id = 'emergency' style = 'float: left; margin-top: 70; margin-left:7; width: 370; height: 255; background-color: #af1b19;' onmouseover="emergencyOver()">
-            <img src = '/img/dd.png'/>
+            <img src = '/img/emergency.png'/>
         </div>
 
         <div id = 'emergencyBackground' style= 'top: 0; position: absolute; width : auto;
@@ -96,6 +96,12 @@
                 document.getElementById('leapMotion').style.display = 'none';
                 document.getElementById('defaultImg').style.display = 'none';
 
+                setTimeout(function() {
+                    document.getElementById('analysis').style.display = 'none';
+                    video.load(); 
+                    video.play();
+                }, 4000);  
+
                 // age
                 var age = document.getElementById('age'); 
                 age.innerHTML = data[1];
@@ -108,24 +114,25 @@
                 var dust = document.getElementById('dustStatus'); 
                 dust.innerHTML = data[3];
                 
-                // dust img(미세먼지 아이콘)
-                if(dust.match('좋음') == '좋음') {
-                    document.getElementById('dustImg').src = '/img/smile.png';
-                }
-                else if(dust.match('보통') == '보통') {
-                    document.getElementById('dustImg').src = '/img/smile.png';
-                }
-                else if(dust.match('나쁨') == '나쁨') {
-                    document.getElementById('dustImg').src = '/img/bad.png';
-                }
-                else if(dust.match('매우나쁨') == '매우나쁨') {
-                    document.getElementById('dustImg').src = '/img/gasmask.png';
-                }
-
                 //weather(실외온도)
                 var weather = document.getElementById('temperature'); 
                 weather.innerHTML = data[4];
 
+                // dust img(미세먼지 아이콘)
+                if(data[3].match('좋음') == '좋음') {
+                    document.getElementById('dustImg').src = '/img/smile.png';
+                }
+                else if(data[3].match('보통') == '보통') {
+                    document.getElementById('dustImg').src = '/img/bad.png';
+                }
+                else if(data[3].match('나쁨') == '나쁨') {
+                    document.getElementById('dustImg').src = '/img/bad.png';
+                }
+                else if(data[3].match('매우나쁨') == '매우나쁨') {
+                    document.getElementById('dustImg').src = '/img/gasmask.png';
+                }
+                
+                console.log(data);
                 // weather_text(날씨 아이콘)
                 if(data[5].match('비') == '비') {
                     document.getElementById('weatherImg').src = '/img/rain.png';
@@ -139,12 +146,9 @@
                 else if(data[5].match('눈') == '눈') {
                     document.getElementById('weatherImg').src = '/img/snow.png';
                 }
-
-                setTimeout(function() {
-                    document.getElementById('analysis').style.display = 'none';
-                    video.load(); 
-                    video.play();
-                }, 4000);  
+                else{
+                    document.getElementById('weatherImg').src = '/img/snow.png';
+                }
             });
 
             document.getElementById('video').addEventListener('ended', function() {
