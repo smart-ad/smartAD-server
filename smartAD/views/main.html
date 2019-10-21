@@ -13,8 +13,8 @@
     </head>
     <body onload = 'printClock()'>
         <div id = 'videoDiv'>
-            <video id = 'video' poster=''  style= 'top: 0; width : auto;
-            height : auto; float: left; z-index : -1; width: 80%; height: 100%;' controls='controls' preload='none' autoplay= 'autoplay' muted>
+            <video id = 'video' poster='' style= 'top: 0; width : auto;
+            height : auto; float: left; z-index : -1; width: 80%; height: 100%;' controls='controls' preload='none' autoplay= 'autoplay'>
                 <source id ='url' src='' type='video/mp4' />
             </video>
             
@@ -29,16 +29,16 @@
 
             <div id = 'defaultImg' style= 'top: 0; position: absolute; width : auto;
             height : auto; float: left; z-index : 1; width: 79.3%; height: 100%; background-color: #fff;'>
-                <img src = '/img/1.PNG' style = 'width: 1520; height: 1080'/>
+                <img src = '/img/mainImg.PNG' style = 'width: 1520; height: 1080'/>
             </div>
 
             <div id = 'leapMotion' style= 'top: 0; position: absolute; width : auto;
             height : auto; float: left; z-index : 2; width: 79.3%; height: 100%; background-color: #222; opacity: 0.97; display: none;'>
-                <br><span id = 'count' class = 'finishMessage' style = 'display: block; margin-top: 120px; margin-left: 570px; float: left; color: #5699d2;'>5</span>
+                <br><span id = 'count' class = 'finishMessage' style = 'display: block; margin-top: 120px; margin-left: 570px; float: left; color: #5699d2;'>10</span>
                 <span class = 'finishMessage'  style = 'display: block; margin-top: 120px; margin-left: 9px; float: left;'>초 후에 종료 됩니다</span>
                 <div  style= 'position: absolute;'>
-                    <img src = '/img/l.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
-                    <img src = '/img/r.png'style = 'position: absolute; margin-top: 390px; margin-left: 950px; width: 250; height: 340;'/>
+                    <img src = '/img/leftSwipe.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
+                    <img src = '/img/rightSwipe.png'style = 'position: absolute; margin-top: 390px; margin-left: 950px; width: 250; height: 340;'/>
                 </div>
             </div>
         </div> 
@@ -47,11 +47,11 @@
             <br><br><br><br><br><font id = 'clock'></font> 
         </div>
 
-        <div style = 'float: right; width: 20%; height: 35%;'>
+        <div id = 'weatherDiv' style = 'float: right; width: 20%; height: 35%;'>
             <br><span id = 'city' style = 'margin-left: 250;'>도봉구</span>
             <div>
-                <img src = '/img/cloud.png' style = 'width: 120; height: 120; margin-top: 5; margin-left: 15;'/>
-                <span id = 'temperature' style = 'position: absolute; float: right; margin-top: 5;  margin-left: 13;margin-right: 80;'>24</span>
+                <img id = 'weatherImg' src = '/img/cloud.png' style = 'width: 120; height: 120; margin-top: 5; margin-left: 15;'/>
+                <span id = 'temperature' style = 'position: absolute; float: right; margin-top: 5; margin-left: 13; margin-right: 80;'>24</span>
                 <span id = 'do' style = 'float: right; margin-top: 60; margin-right: 25;'>℃</span>
                 <div style = 'float: right; margin-top: 13; margin-right: 27;'>
                     <span class = 'insideTemperature'>실내 온도</span>
@@ -61,14 +61,14 @@
                 <div style = 'margin-top: 63; margin-left: 120;'>
                     <span id = 'dust'>미세먼지</span>
                     <span id = 'dustStatus' style = 'margin-left: 14;'>좋음</span>
-                    <img src = '/img/smile.png' style = 'position: absolute; float: right;margin-top: 0; margin-left: 20; margin-right: 17; width: 45; height: 45;'/>
+                    <img id = 'dustImg' src = '/img/smile.png' style = 'position: absolute; float: right;margin-top: 0; margin-left: 20; margin-right: 17; width: 45; height: 45;'/>
                 </div>
             
             </div>
         </div>
 
         <div id = 'emergency' style = 'float: left; margin-top: 70; margin-left:7; width: 370; height: 255; background-color: #af1b19;' onmouseover="emergencyOver()">
-            <img src = '/img/dd.png'/>
+            <img src = '/img/emergency.png'/>
         </div>
 
         <div id = 'emergencyBackground' style= 'top: 0; position: absolute; width : auto;
@@ -76,10 +76,15 @@
             <img id = 'call' src = '/img/119.png' style= 'top: 400; position: absolute; z-index : 7; margin-left: 400; width: 200; height: 200; display: none;'/>
             <img id = 'aed'  src = '/img/aed.png' style= 'top: 400; position: relative; margin-right: 100; margin-left: 900; z-index : 7; width: 200; height: 200;display: none;' onmouseover="aedOver()"/>
             <video id = 'aedVideo' poster=''  style= 'top: 0; width : auto;
-            height : auto; float: left; z-index : 11; width: 100%; height: 100%; display: none;' controls='controls' preload='none' autoplay= 'autoplay' muted>
+            height : auto; float: left; z-index : 11; width: 100%; height: 100%; display: none;' controls='controls' preload='none' autoplay= 'autoplay'>
                 <source id ='aedSrc' src='https://sopt-seminar.s3.ap-northeast-2.amazonaws.com/AED+%EC%82%AC%EC%9A%A9%EB%B2%95+_%EC%A7%88%EB%B3%91%EA%B4%80%EB%A6%AC%EB%B3%B8%EB%B6%80_%EC%9D%BC%EB%B0%98%EC%9D%B8+%EC%8B%AC%ED%8F%90%EC%86%8C%EC%83%9D%EC%88%A0+%ED%91%9C%EC%A4%80%EA%B5%90%EC%9C%A1+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8+(1).mp4' type='video/mp4' />
             </video>
         </div>
+
+        <div id = 'exit' style = 'top: 0; position: absolute; margin-left: 730; margin-top: 40; z-index : 15; width: 1; height: 1; display: none;' onmouseover="exitOver()">
+            <img src = '/img/exit.png'/>
+        </div>
+
         <script>
             socket.on('ad', function (data) {
                 
@@ -90,35 +95,60 @@
                 document.getElementById('analysis').style.display = 'block';
                 document.getElementById('leapMotion').style.display = 'none';
                 document.getElementById('defaultImg').style.display = 'none';
-                // document.getElementById('leapMotion').style.display = 'none';
-
-                //age
-                var age = document.getElementById('age'); 
-                age.innerHTML = data[1];
-                
-                //gender
-                var gender = document.getElementById('gender'); 
-                gender.innerHTML = data[2];
-
-                //dust(미세먼지)
-                var dust = document.getElementById('dustStatus'); 
-                dust.innerHTML = data[3];
-
-                //weather(실외온도)
-                var weather = document.getElementById('temperature'); 
-                weather.innerHTML = data[4];
-                
-                //weather_text(날씨 아이콘)
-                //     if(data = '흐리다'){
-
-                //     }
-                //     document.getElementById('weatherImg').src = ;
 
                 setTimeout(function() {
                     document.getElementById('analysis').style.display = 'none';
                     video.load(); 
                     video.play();
-                }, 5000);  
+                }, 4000);  
+
+                // age
+                var age = document.getElementById('age'); 
+                age.innerHTML = data[1];
+                
+                // gender
+                var gender = document.getElementById('gender'); 
+                gender.innerHTML = data[2];
+
+                // dust(미세먼지)
+                var dust = document.getElementById('dustStatus'); 
+                dust.innerHTML = data[3];
+                
+                //weather(실외온도)
+                var weather = document.getElementById('temperature'); 
+                weather.innerHTML = data[4];
+
+                // dust img(미세먼지 아이콘)
+                if(data[3].match('좋음') == '좋음') {
+                    document.getElementById('dustImg').src = '/img/smile.png';
+                }
+                else if(data[3].match('보통') == '보통') {
+                    document.getElementById('dustImg').src = '/img/bad.png';
+                }
+                else if(data[3].match('나쁨') == '나쁨') {
+                    document.getElementById('dustImg').src = '/img/bad.png';
+                }
+                else if(data[3].match('매우나쁨') == '매우나쁨') {
+                    document.getElementById('dustImg').src = '/img/gasmask.png';
+                }
+                
+                console.log(data);
+                // weather_text(날씨 아이콘)
+                if(data[5].match('비') == '비') {
+                    document.getElementById('weatherImg').src = '/img/rain.png';
+                }
+                else if(data[5].match('눈') == '눈') {
+                    document.getElementById('weatherImg').src = '/img/snow.png';
+                }
+                else if(data[5].match('흐림') == '흐림' || data[5].match('구름') == '구름') {
+                    document.getElementById('weatherImg').src = '/img/cloud.png';
+                }
+                else if(data[5].match('맑음') == '맑음') {
+                    document.getElementById('weatherImg').src = '/img/sun.png';
+                }
+                else{
+                    document.getElementById('weatherImg').src = '/img/cloud.png';
+                }
             });
 
             document.getElementById('video').addEventListener('ended', function() {
@@ -126,6 +156,26 @@
                 document.getElementById('leapMotion').style.display = 'block';
                 document.getElementById('defaultImg').style.display = 'none';
                 
+                $(function() {
+                    var cnt = 10;
+                    var counter = setInterval(function() {
+                        if (cnt > 0) {
+                            var count = document.getElementById('count');       
+                            count.innerHTML = '<span>' + cnt + ' </span>'
+                            cnt--;
+                        } 
+                        else 
+                            clearInterval(counter);
+                    }, 1000);
+                });
+
+                // 립모션 없을 경우 5초 뒤 restart 조건 넣어야 됨.
+                var timeCount = setTimeout(function() {
+                                    socket.emit('restart');
+                                    document.getElementById('defaultImg').style.display = 'block';
+                                    document.getElementById('leapMotion').style.display = 'none';
+                                }, 11000);
+
                 // Display Gesture object data
                 var controller = Leap.loop({enableGestures: true}, function(frame) {
                     if (frame.gestures.length > 0) {
@@ -156,6 +206,7 @@
                                 
                                     document.getElementById('leapMotion').style.display = 'none';
                                     document.getElementById('defaultImg').style.display = 'none';
+                                    clearTimeout(timeCount);
                                     console.log(swipeDirection)
                                     console.log(duration)
                                 } 
@@ -163,13 +214,6 @@
                         }
                     }
                 });
-                
-                // 립모션 없을 경우 5초 뒤 restart 조건 넣어야 됨.
-                setTimeout(function() {
-                            socket.emit('restart');
-                            document.getElementById('defaultImg').style.display = 'block';
-                            document.getElementById('leapMotion').style.display = 'none';
-                }, 10000);
             });
             
             document.getElementById('aedVideo').addEventListener('ended', function() {
@@ -188,7 +232,6 @@
                 var currentHours = addZeros(currentDate.getHours(), 2); 
                 var currentMinute = addZeros(currentDate.getMinutes() , 2);
                 var currentSeconds =  addZeros(currentDate.getSeconds(), 2);
-                let weatherURL ='https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105';
 
                 if(currentHours >= 12) { // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
                     amPm = 'PM';
@@ -223,27 +266,6 @@
                         }
                     });
                 });
-
-                $(document).ready(function(){
-                    $.ajax({
-                        type : 'GET',
-                        url : 'https://weather.naver.com/rgn/townWetr.nhn?naverRgnCd=09320105',
-                        crossDomain: true,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Access-Control-Allow-Methods': 'GET',
-                            'Access-Control-Allow-Headers': '*',
-                        } ,
-                        error : function(error){
-                            console.log(error)
-                            console.log('통신 실패!')
-                        },
-                        success : function(result){
-                            console.log(result);
-                        }
-                    });
-                });
-
                 setTimeout('printClock()', 10000);         // 1초마다 printClock() 함수 호출
             }
 
@@ -317,6 +339,7 @@
                 document.getElementById('emergencyBackground').style.display = 'block';
                 document.getElementById('call').style.display = 'block';
                 document.getElementById('aed').style.display = 'block';
+                document.getElementById('exit').style.display = 'block';
             }
 
             function aedOver() {
@@ -327,7 +350,18 @@
                 aedVideo.load(); 
                 aedVideo.play();
                 var video = document.getElementById('video');
-                video.stop();
+                video.pause();
+            }
+
+            function exitOver() {
+                document.getElementById('aedVideo').style.display = 'none'; 
+                document.getElementById('emergencyBackground').style.display = 'none';
+                document.getElementById('call').style.display = 'none';
+                document.getElementById('aed').style.display = 'none';
+                document.getElementById('exit').style.display = 'none';
+                var aedVideo = document.getElementById('aedVideo');
+                aedVideo.pause();
+                video.play();
             }
         </script>
     </body>
