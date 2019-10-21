@@ -137,17 +137,17 @@
                 if(data[5].match('비') == '비') {
                     document.getElementById('weatherImg').src = '/img/rain.png';
                 }
+                else if(data[5].match('눈') == '눈') {
+                    document.getElementById('weatherImg').src = '/img/snow.png';
+                }
                 else if(data[5].match('흐림') == '흐림' || data[5].match('구름') == '구름') {
                     document.getElementById('weatherImg').src = '/img/cloud.png';
                 }
                 else if(data[5].match('맑음') == '맑음') {
                     document.getElementById('weatherImg').src = '/img/sun.png';
                 }
-                else if(data[5].match('눈') == '눈') {
-                    document.getElementById('weatherImg').src = '/img/snow.png';
-                }
                 else{
-                    document.getElementById('weatherImg').src = '/img/snow.png';
+                    document.getElementById('weatherImg').src = '/img/cloud.png';
                 }
             });
 
