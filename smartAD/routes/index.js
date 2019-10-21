@@ -123,11 +123,6 @@ io.on('connection', (socket) => {
       age = '4069'
     }
 
-    /* 
-     * DB connecttion
-     */ 
-    _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
-
     if (parseInt(data[0]) > 0 && parseInt(data[0]) < 10) {
       _age = '0~10세'
     }
@@ -159,7 +154,11 @@ io.on('connection', (socket) => {
     else if (gender == 'm') {
       gender = '남성'
     }
-
+    
+    /* 
+     * DB connecttion
+     */ 
+    _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
     
     if(_result != undefined) {
       const ad_agd_gender = [];

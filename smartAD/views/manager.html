@@ -37,7 +37,7 @@
         </div>
     
         <!-- /Side Menu -->
-        <form class = "form" style = 'padding-top: 80; padding-left: 80;'>
+        <form action = 'http://localhost:3000/form_receiver' method = 'post' class = "form" style = 'padding-top: 80; padding-left: 80;' enctype="multipart/form-data">
                 나이 : <select name='age'>
                         <option value="0~10세" selected="selected">0~10세</option>
                         <option value="10대">10대</option>
@@ -46,38 +46,38 @@
                         <option value="40대">40대</option>
                         <option value="50대">50대</option>
                         <option value="60대">60대</option>
-                        <option value="70대">70대</option>
                     </select>
                 성별 : <select name='gender'>
                             <option value="여성" selected="selected">여성</option>
                             <option value="남성">남성</option>
-                            <option value="null">all</option>
+                            <option value="all">all</option>
                     </select>
                 감정 : <select name='emotion'>
                             <option value="neutral" selected="selected">neutral</option>
                             <option value="negative">negative</option>
                             <option value="positive">positive</option>
-                            <option value="null">all</option>
+                            <option value="all">all</option>
                     </select>
                 시간 : <select name='time'>
                             <option value="lunch" selected="selected">lunch</option>
                             <option value="dinner">dinner</option>
-                            <option value="null">all</option>
+                            <option value="all">all</option>
                     </select>
                 계절 : <select name='season'>
                             <option value="spring" selected="selected">spring</option>
                             <option value="summer">summer</option>
                             <option value="autumn">autumn</option>
                             <option value="winter">winter</option>
-                            <option value="null">all</option>
+                            <option value="all">all</option>
                     </select>
                 날씨 : <select name='weather'>
                             <option value="dust" selected="selected">dust</option>
                             <option value="hot">hot</option>
                             <option value="cold">cold</option>
-                            <option value="null">all</option>
+                            <option value="all">all</option>
                     </select>
-                광고 url : <input id='ad_url' type="text"/>
+                광고 이름 : <input name ='ad_name' type="text"/>
+                광고 url : <input name ='ad_url' type="file"/>
                 <input type='submit' value="업로드">
         </form>
         <div class="container open" style = 'margin-top: 40;'>
@@ -98,9 +98,7 @@
         <!-- </div>  -->
      
         <script>
-
             $("select[name=age]").val();
-
         </script>
         <!-- Side Menu -->
         <div class="container">
