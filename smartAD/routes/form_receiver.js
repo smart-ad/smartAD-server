@@ -48,16 +48,13 @@ router.post('/', upload.single('ad_url'), async(req, res) => {
     const insertADQuery = 'INSERT INTO ad (name, url) VALUES (?, ?)';
     const selectADQuery = 'SELECT `ad_idx` FROM ad WHERE `name` = ?';
     const insertTAGQuery = 'INSERT INTO tag (`age`, `gender`, `emotion`, `time`, `season`, `weather`, `ad_idx`) VALUES (?, ?, ?, ?, ?, ? ,?)';
-    // const selectADTable =  'SELECT * FROM ad INTO OUTFILE "C:/Users/DS/Documents/github/smartAD/server/smartAD/views/manager_2.csv" FIELDS TERMINATED BY "," '
 
     const insertTransaction = await db.Transaction(async(connection) => {
         const insertADResult = await connection.query(insertADQuery, [name, url]);
         const selectADResult = await connection.query(selectADQuery, [name]);
         const insertTAGResult = await connection.query(insertTAGQuery, [age, gender, emotion, time, season, weather, selectADResult[0]['ad_idx']]);
-        // const selectADTableResult = await connection.query(selectADTable);
     });
 
-    //db에 올리면 db에 있는 ad 테이블의 값들을 다시 웹에 띄워주는 작업해주기!
     if(insertTransaction == 0){
         console("fail");
     }
