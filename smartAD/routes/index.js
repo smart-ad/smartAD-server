@@ -11,6 +11,8 @@ const cheerio = require('cheerio');
 const request = require('request');
 const client = require('cheerio-httpcli');
 const path = require('path');
+const fs = require("fs");
+const json2csv = require("async-json2csv");
 
 /* 
  * port 열기
@@ -176,7 +178,7 @@ io.on('connection', (socket) => {
      * DB connecttion
      */
     _result = await db.query(selectQuery, [age, gender, emotion, time, season, weather]);
-
+    console.log(_result)
     /* 
      * data object to show html
      */
@@ -189,7 +191,24 @@ io.on('connection', (socket) => {
       ad_age_gender.push(_weather);
       ad_age_gender.push(weather_text);
       socket.broadcast.emit('ad', ad_age_gender);
-    }    
+
+      //csv파일로 만들기!
+      const manager = [];
+      const Info = {
+        '나이' :  _age,
+        '성별' : _gender,
+        '감정' : data[2],
+        '광고 이름' : _result[0]['name']
+      }
+      manager.push(Info);
+      const managerCsv = await json2csv({
+          data : manager,
+          fields : ['나이', '성별', '감정', '광고 이름'],
+          // header : true
+      });
+      fs.appendFileSync('../views/manager.csv', managerCsv);//경로 확인해보기! & appendFileSync랑 뭐가 다른지!
+    }
+    
   });
 
  /* 

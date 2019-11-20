@@ -37,7 +37,7 @@
                 <br><span id = 'count' class = 'finishMessage' style = 'display: block; margin-top: 120px; margin-left: 570px; float: left; color: #5699d2;'>10</span>
                 <span class = 'finishMessage'  style = 'display: block; margin-top: 120px; margin-left: 9px; float: left;'>초 후에 종료 됩니다</span>
                 <div  style= 'position: absolute;'>
-                    <img src = '/img/leftSwipe.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
+                    <img src = '/img/l.png' style = 'position: absolute; margin-top: 390px; margin-left: 250px; width: 250; height: 340;'/>
                     <img src = '/img/rightSwipe.png'style = 'position: absolute; margin-top: 390px; margin-left: 950px; width: 250; height: 340;'/>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <span id = 'do' style = 'float: right; margin-top: 60; margin-right: 25;'>℃</span>
                 <div style = 'float: right; margin-top: 13; margin-right: 27;'>
                     <span class = 'insideTemperature'>실내 온도</span>
-                    <span id = 'insideTemperature' style = 'position: absolute;'></span>
+                    <span id = 'insideTemperature' style = 'position: absolute;'>24</span>
                     <span id = 'insideDo' style = 'margin-left: 44;'>℃</span>
                 </div>
                 <div style = 'margin-top: 63; margin-left: 120;'>
@@ -164,9 +164,12 @@
                             count.innerHTML = '<span>' + cnt + ' </span>'
                             cnt--;
                         } 
-                        else 
+                        else {
                             clearInterval(counter);
+                            cnt = 10;
+                        }
                     }, 1000);
+                    cnt = 10;
                 });
 
                 // 립모션 없을 경우 5초 뒤 restart 조건 넣어야 됨.
@@ -175,7 +178,7 @@
                                     document.getElementById('defaultImg').style.display = 'block';
                                     document.getElementById('leapMotion').style.display = 'none';
                                 }, 11000);
-
+                var isVisit = 0;
                 // Display Gesture object data
                 var controller = Leap.loop({enableGestures: true}, function(frame) {
                     if (frame.gestures.length > 0) {
@@ -189,12 +192,13 @@
                                 var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
 
                                 //Classify as right-left or up-down
-                                if(isHorizontal == true) {
+                                if(isHorizontal == true && isVisit == 0) {
                                     
                                     if(gesture.direction[0] > 0) {
                                         // 다른 광고 추천
                                         swipeDirection = 'right';
                                         socket.emit('restart');
+                                        isVisit = 1;
                                     } else {
                                         // 다시 보기
                                         swipeDirection = 'left';
@@ -202,6 +206,7 @@
                                         var video = document.getElementById('video');   
                                         video.load(); 
                                         video.play();
+                                        isVisit = 1;
                                     }
                                 
                                     document.getElementById('leapMotion').style.display = 'none';
